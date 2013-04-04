@@ -1,0 +1,17 @@
+{
+	"name": "Seekvence",
+	"version": "1.0.0",
+	"dependencies": {
+		"requirejs": "latest",
+		"jquery": "latest",
+		"underscore": "latest",
+		"backbone": "latest",
+		"backbone-validation":"latest",
+		"marionette": "latest",
+		"handlebars":"latest",
+		"text":"lastest",
+		"jasmine": "latest",
+		"jasmine-jquery": "latest",
+		"socket.io-client":"latest"
+	}
+}
