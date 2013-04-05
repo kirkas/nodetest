@@ -15,7 +15,10 @@
 				"socket.io":"latest",
 				"underscore":"latest",
 				"ejs":"latest",
-				"fs":"latest",
 				"bcrypt":"latest"
+		},
+		"engines": {
+			"node": "latest",
+			"npm": "latest"
 		}
 }
