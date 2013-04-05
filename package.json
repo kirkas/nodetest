@@ -16,5 +16,6 @@
 				"underscore":"latest",
 				"ejs":"latest",
 				"fs":"latest",
+				"bcrypt":"latest"
 		}
 }

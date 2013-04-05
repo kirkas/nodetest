@@ -198,11 +198,13 @@ exports.view = function(request, response, next){
 
 /* ---- Login function --------------*/
 exports.login = function(request, response, next){
+	start = new Date();
 	passport.authenticate('local', function(err, user, info) {
 		if (err) return response.json(418, "something went wtrong");
 		if(!user) return response.json(406, info);
 		request.logIn(user, function(err) {
 			if (err) return response.json(418, "something went wtrong");
+			console.log("one user logged in: '" + user.username + "' (id:" + request.params.id + "), Request took:", new Date() - start, "ms");
 			return response.json(200, request.user);
 		});
 	})(request, response, next);
