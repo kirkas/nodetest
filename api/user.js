@@ -147,9 +147,6 @@ exports.create = function(request, response, next){
 			});
 		}
 	});
-	
-
-
 }
 
 /* ---- Save a User -----------------*/

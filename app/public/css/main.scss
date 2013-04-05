@@ -47,7 +47,6 @@ html{
 	-webkit-font-smoothing:antialiased;
 }
 
-
 #first-loading{
 	width:70px;
 	height:20px;
@@ -63,13 +62,11 @@ html{
 
 .signup-box, .login-box{
 	padding: $gutter-width;
-	margin-top: 120px;
+	margin-top: 60px!important;
 	background: #f2f2f2;
 	border: 1px solid #ddd;
 	border-radius:$border-radius;
-	button[type="submit"]{
-		margin-bottom: 0;
-	}
+	padding: 6px!important;
 }
 
 nav.navigation{
