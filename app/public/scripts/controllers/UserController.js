@@ -22,6 +22,8 @@ define(['marionette', 'text!templates/userLayout.html', 'views/User', 'models/Us
 			var userProfileVIew = new UserView({
 				model: App.CurrentUser
 			})
+			
+			console.log(App.CurrentUser)
 			this.layout.header.show(userProfileVIew)
 		}
 	

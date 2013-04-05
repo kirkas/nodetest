@@ -46,17 +46,6 @@ require.config({
 require(['views/App'], function(App) {
     App.start();
     
-    //Backbone Validation Plugin setup 	
-    _.extend(Backbone.Validation.callbacks, {
-      valid: function(view, attr, selector) {
-        $(view.el).find(".alert-box.error-" + attr).remove();
-        $(view.el).find("input[name=" + attr + "]").removeClass("error success").css("border", "3px solid green").addClass("success").prev("label").css("color", "green");
-      },
-    
-      invalid: function(view, attr, error, selector) {
-        $(view.el).find(".alert-box.error-" + attr).remove();
-        $(view.el).find("input[name=" + attr + "]").removeClass("error success").css("border", "3px solid red").addClass("error").prev("label").css("color", "red").before("<p class='alert-box error-" + attr + "'>" + error + "</p>");
-      }
-    });
+
     
 });

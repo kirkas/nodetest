@@ -4,16 +4,8 @@ define(['marionette', 'text!templates/userItem.html'], function(Marionette, temp
     //Template HTML string
     template: Handlebars.compile(template),
     className: "user",
-    ui: {
-      removeButton: ".remove"
-    },
-
-    events: {
-      "click .remove": "removeUser"
-    },
 
     initialize:function(){
-
     },
 
     serialize: function() {

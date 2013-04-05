@@ -13,6 +13,8 @@
 				"passport-local":"latest",
 				"connect-flash":"latest",
 				"socket.io":"latest",
-				"underscore":"latest"
+				"underscore":"latest",
+				"ejs":"latest",
+				"fs":"latest",
 		}
 }

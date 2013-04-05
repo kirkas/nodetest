@@ -14,11 +14,11 @@ textarea{
 	@include boxSizing;
 	font-style: italic;
 
-	&.error{
+	&.invalid{
 		border: 2px solid $color-red;
 	}
 
-	&.success{
+	&.valid{
 		border: 2px solid $color-green;
 	}
 

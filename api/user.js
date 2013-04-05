@@ -26,13 +26,13 @@ passport.use(new LocalStrategy(function(username, password, done) {
 		username: username
 	}, function(err, user) {
 		if (err) return done(err);
-		if (!user) return done(null, false, { message: 'Incorrect username.' })
+		if (!user) return done(null, false, { dataError: "username", message: 'Incorrect username.' })
 		user.comparePassword(password, function(err, isMatch) {
 			if (err) return done(err);
 			if (isMatch) {
 				return done(null, user, {message:'Logged in success'});
 			} else {
-				return done(null, false, { message: 'Incorrect password.' });
+				return done(null, false, { dataError: "password", message: 'Incorrect password.' });
 			}
 		});
 	});
@@ -109,33 +109,47 @@ exports.list = function(request, response, next){
 /* ---- Create a new user -----------*/
 exports.create = function(request, response, next){
 	start = new Date();
+	
 	var user = new UserModel({
 		username: request.body.username,
 		email: request.body.email,
 		password: request.body.password
 	});
 	
-	UserModel.find({
-		"email": user.email
-	}, function(error, responseD) {
-		if (responseD.length == 0) {
-			user.save(function(error) {
-				if (!error) {
-					console.log("created new user '" + user.username + "' (id:" + user.id + "), Request took:", new Date() - start, "ms");
-					request.login(user, function(err) {
-						if (err) { return next(err); }
-						console.log("new user logged in '" + user.username + "' (id:" + user.id + "), Request took:", new Date() - start, "ms");
-					});
-				} else {
-					console.log(error);
-				}
-				
-				return response.send(user);
+
+	UserModel.find({"username": user.username }, function(error, responseD) { 
+		if (!responseD.length == 0) {
+			duplicate = true;
+			return response.send(409, { 
+				dataError: "username",
+				message: 'Username already exist!'
 			});
-		} else {
-			return response.send(409, 'Email already Exist');
+		}else{
+			UserModel.find({"email": user.email }, function(error, responseD) { 
+				if (!responseD.length == 0) {
+					duplicate = true;
+					return response.send(409, {
+						dataError: "email",
+						message: 'Email already exist!'
+					});
+				}else{
+					user.save(function(error) {
+						if (!error) {
+							console.log("created new user '" + user.username + "' (id:" + user.id + "), Request took:", new Date() - start, "ms");
+							request.login(user, function(err) {
+								if (err) { return next(err); }
+								console.log("new user logged in '" + user.username + "' (id:" + user.id + "), Request took:", new Date() - start, "ms");
+							});
+						} else {console.log(error);}
+						return response.send(user);
+					});
+				}
+			});
 		}
 	});
+	
+
+
 }
 
 /* ---- Save a User -----------------*/
@@ -189,23 +203,15 @@ exports.view = function(request, response, next){
 exports.login = function(request, response, next){
 	passport.authenticate('local', function(err, user, info) {
 		if (err) return response.json(418, "something went wtrong");
-		if(!user) return response.json(406, info.message);
+		if(!user) return response.json(406, info);
 		request.logIn(user, function(err) {
 			if (err) return response.json(418, "something went wtrong");
-			return response.json(200);
+			return response.json(200, request.user);
 		});
 	})(request, response, next);
 	
 }
 
-/* ---- Is logged request -----------*/
-exports.isLogged = function(request, response, next){
-	if(request.isAuthenticated()){
-		response.json(200, request.user );
-	}else{
-		response.json(200, false );
-	}  
-}
 
 /* ---- Logout function -------------*/
 exports.logout = function(request, response, next){

@@ -3,7 +3,7 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
   Signup = Marionette.ItemView.extend({
     //Template HTML string
     template: Handlebars.compile(template),
-    className: "signup-box",
+    className: "signup-box six block centered",
     model: new userModel(),
 
     events: {
@@ -16,9 +16,6 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
       userPassword: "#user-password"
     },
 
-    triggers:{
-      "click .login":"login-link:clicked"
-    },
 
     onRender: function() {
       var self = this;
@@ -29,6 +26,7 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
       });
 
     },
+    
 
     signup: function() {
       var self = this;
@@ -40,7 +38,7 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
       }
       
       this.model.set(attributes)
-
+      
       if (this.model.isValid(true)) {
         this.model.save({}, {
           success: function(model, response) {
@@ -48,12 +46,20 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
             self.trigger("signup:complete");
           },
           error: function(model, response) {
-            alert(response.responseText);
+            var error = JSON.parse(response.responseText);
+            if(error.dataError == "email"){
+              self.ui.userEmail.removeClass("valid").addClass("invalid");
+              alert(error.message)
+            }else if(error.dataError == "username"){
+              self.ui.userName.removeClass("valid").addClass("invalid");
+              alert(error.message)
+            }else{
+              alert("something went wrong, sorry")
+            }
           }
+          
         });
         return true;
-      }else{
-        this.$("input").prop("disabled", false)
       }
 
       return false;

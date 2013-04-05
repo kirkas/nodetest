@@ -2,7 +2,7 @@
 	outline-color:$color;
 	cursor: pointer;
 	border-radius: 3px;
-	display: inline;
+	display: inline-block;
 	padding: $form-font-size/2 $form-font-size $form-font-size/2 $form-font-size;
 	
 	@include gradient(lighten($color,5%), $color);
@@ -40,7 +40,7 @@ button,
 input[type="button"], 
 input[type="submit"],
 .button{
-	color: #fff;
+	color: #fff!important;
 	@include button($color-blue);
 	@include font-size($form-font-size);
 	&.success{
