@@ -16,7 +16,8 @@
 				"underscore":"latest",
 				"ejs":"latest",
 				"bcrypt":"latest",
-				"requirejs":"latest"
+				"requirejs":"latest",
+				"socket.io":"latest"
 		},
 		"engines": {
 			"node": "0.10.3",

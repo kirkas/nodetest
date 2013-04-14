@@ -7,6 +7,7 @@ require.config({
     marionette: '../components/marionette/lib/backbone.marionette',
     text: '../components/text/text',
     handlebars: '../components/handlebars/handlebars',
+    io: '../components/socket.io-client/dist/socket.io'
   },
 
   shim: {
@@ -43,6 +44,12 @@ require.config({
   }
 });
 
-require(['App'], function(App) {
+require(['App', 'io'], function(App, io) {
     App.start();
+    
+    var socket = io.connect('http://localhost:4711/');
+    socket.on('server running', function () {
+      console.log("server running");
+      socket.emit('client running');
+    });
 });

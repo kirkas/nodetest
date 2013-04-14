@@ -16,10 +16,15 @@ bcrypt = require('bcrypt');
 SALT_WORK_FACTOR = 10;
 ejs = require('ejs');
 fs = require('fs');
+io = require('socket.io');
+http = require('http');
 
 /* ---- Express Server --------------*/
-application_root = __dirname+'/app-build/';
+application_root = __dirname+'/app/';
 app = express();
+
+
+
 
 app.configure(function() {
   app.use(express.cookieParser('your secret here'));
@@ -49,6 +54,17 @@ db.once('open', function callback() {console.log('Connected to DB');});
 /* ---- Routes --------------------*/
 require('./api/routes')(app);
 
-app.listen(4711, function() {
+
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+server.listen(4711, function() {
   console.log('Express server listening on port %d in %s mode', 4711, app.settings.env);
+});
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('server running');
+  socket.on('client running', function () {
+    console.log("client running");
+  });
 });
