@@ -14,22 +14,22 @@ module.exports = function(app) {
 			});
 		});
 		
-		app.get('/user/:id', function(req, res, next) {
-			console.log(req.route.params.id)
-			return res.send("yeah")
-			var isLoggedIn = false;
-			var user = false;
-		
-			if(req.isAuthenticated()){
-				isLoggedIn = true;
-				user = req.user
-			}
-			res.render('index', {
-				isLoggedIn: true,
-				user: JSON.stringify(user)
-			});
-		});
-		
+		// app.get('/user/:id', function(req, res, next) {
+		// 	console.log(req.route.params.id)
+		// 	return res.send("yeah")
+		// 	var isLoggedIn = false;
+		// 	var user = false;
+		// 
+		// 	if(req.isAuthenticated()){
+		// 		isLoggedIn = true;
+		// 		user = req.user
+		// 	}
+		// 	res.render('index', {
+		// 		isLoggedIn: true,
+		// 		user: JSON.stringify(user)
+		// 	});
+		// });
+		// 
 		app.get('/login', function(req, res, next) {
 			res.redirect('/#login');
 		});

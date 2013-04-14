@@ -44,12 +44,6 @@ require.config({
   }
 });
 
-require(['App', 'io'], function(App, io) {
+require(['App'], function(App) {
     App.start();
-    
-    var socket = io.connect('http://localhost:4711/');
-    socket.on('server running', function () {
-      console.log("server running");
-      socket.emit('client running');
-    });
 });

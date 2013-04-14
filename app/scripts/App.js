@@ -2,12 +2,14 @@ define([
   'controllers/HomeController',
   'controllers/UserController',
   'models/User',
-  'views/Navigation'
+  'views/Navigation',
+  'io'
 ],function(
   HomeController,
   UserController,
   UserModel,
-  Navigation
+  Navigation,
+  io
 ){
 
   //App setup 	
@@ -68,6 +70,16 @@ define([
   });
 
  
+  var socket = io.connect('http://localhost');
+  socket.on('server running', function () {
+    console.log("server running");
+    socket.emit('client running');
+  });
+  
+  // socket.on('userStatus', function (data) {
+  //   console.log(data);
+  // });
+ 
   App.addInitializer(function(options) {
     if(CurrentUser){
       App.CurrentUser = new UserModel(CurrentUser);
@@ -76,7 +88,7 @@ define([
       App.CurrentUser = false;
       App.ShowUserSignup();
     }
-
+    
     
     Backbone.history.start();
   });

@@ -62,9 +62,24 @@ server.listen(4711, function() {
   console.log('Express server listening on port %d in %s mode', 4711, app.settings.env);
 });
 
+
+
+
 io.sockets.on('connection', function (socket) {
   socket.emit('server running');
   socket.on('client running', function () {
     console.log("client running");
   });
+  
+  
+  var isLoggedIn = false;
+  var user = false;
+  // if(req.isAuthenticated()){
+  //   isLoggedIn = true;
+  //   user = req.user
+  // }
+  socket.emit('userStatus', { isLoggedIn: isLoggedIn, user: user });
+  
+
+  
 });
