@@ -71,15 +71,6 @@ io.sockets.on('connection', function (socket) {
     console.log("client running");
   });
   
-  
-  var isLoggedIn = false;
-  var user = false;
-  // if(req.isAuthenticated()){
-  //   isLoggedIn = true;
-  //   user = req.user
-  // }
-  socket.emit('userStatus', { isLoggedIn: isLoggedIn, user: user });
-  
 
   
 });
