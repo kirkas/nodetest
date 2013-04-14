@@ -1,4 +1,4 @@
-exports.Routes = function(app) {
+module.exports = function(app) {
 	
 		app.get('/', function(req, res, next) {
 			var isLoggedIn = false;

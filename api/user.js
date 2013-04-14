@@ -4,13 +4,10 @@
 -------------------------------------*/
 
 /* ---- Login depedencies ---------- */
-var passport = require('passport');
-var bcrypt = require('bcrypt');
-var SALT_WORK_FACTOR = 10;
-var _ = require('underscore');
+
 
 /* ---- Login Configuration ---------- */
-var LocalStrategy = require('passport-local').Strategy;
+
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
 });
@@ -47,7 +44,6 @@ function ensureAuthenticated(req, res, next) {
 
 
 /* ---- User Schema -----------------*/
-var mongoose = require('mongoose')
 var userSchema = mongoose.Schema({
 	username: {
 		type: String,

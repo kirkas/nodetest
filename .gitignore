@@ -1,1 +1,5 @@
 .DS_Store
+app/build
+app/components/
+node_modules/
+app-build/

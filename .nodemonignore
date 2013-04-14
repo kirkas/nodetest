@@ -1,2 +1,1 @@
-/app/scripts/     # ignore all external submodules
-/public/*     # static files
+/app/     # ignore all external submodules
