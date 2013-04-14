@@ -1,0 +1,13 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>backbone test</title>
+	<link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<header></header>
+	<div id="application" data-role="content" class="container"><p id="first-loading">Loading..</p></div>
+	<script data-main="scripts/main.js" src="components/requirejs/require.js"></script>
+	<script title="user-data">var CurrentUser = <% if (isLoggedIn) { %><%- user %><% }else { %>false<% } %>;</script>
+</body>
+</html>
