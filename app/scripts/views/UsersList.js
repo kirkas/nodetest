@@ -8,7 +8,7 @@ define([
     itemView: UserView,
     
     initialize: function() {
-	    var that = this;
+			var that = this;
       this.collection = new UsersCollection();
       this.collection.fetch(); // NEW
 

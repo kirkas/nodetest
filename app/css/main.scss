@@ -29,7 +29,6 @@ $color-red: 				#d63632;
 $color-green:				#5da423;
 $color-grey: 				#ccc;
 
-
 @import "mixin";
 @import "helper";
 @import "grid";
@@ -41,6 +40,7 @@ $color-grey: 				#ccc;
 	margin: 0;
 	padding: 0;
 }
+
 
 html{
 	font-smooth:always;

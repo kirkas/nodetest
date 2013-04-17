@@ -7,7 +7,7 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
     model: new userModel(),
 
     events: {
-      "submit form": "signup",
+      "submit form": "signup"
     },
 
     ui: {
@@ -35,9 +35,9 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
         username: self.ui.userName.val(),
         email: self.ui.userEmail.val(),
         password: self.ui.userPassword.val()
-      }
+      };
       
-      this.model.set(attributes)
+      this.model.set(attributes);
       
       if (this.model.isValid(true)) {
         this.model.save({}, {
@@ -49,12 +49,12 @@ define(['text!templates/signup.html', 'models/User', 'marionette'], function(tem
             var error = JSON.parse(response.responseText);
             if(error.dataError == "email"){
               self.ui.userEmail.removeClass("valid").addClass("invalid");
-              alert(error.message)
+              alert(error.message);
             }else if(error.dataError == "username"){
               self.ui.userName.removeClass("valid").addClass("invalid");
-              alert(error.message)
+              alert(error.message);
             }else{
-              alert("something went wrong, sorry")
+              alert("something went wrong, sorry");
             }
           }
           

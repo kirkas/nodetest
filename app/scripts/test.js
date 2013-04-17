@@ -1,65 +1,62 @@
 require.config({
   paths: {
-	  jquery: 'vendor/jquery/jquery',
-	  underscore: 'vendor/underscore/underscore',
-	  backbone: 'vendor/backbone/backbone',
-	  'backbone.validation': 'vendor/backbone-validation/src/backbone-validation',
-	  marionette: 'vendor/marionette/lib/backbone.marionette',
-	  text: 'vendor/text/text',
-	  handlebars: 'vendor/handlebars/handlebars',
-    "jasmine": 'vendor/jasmine/lib/jasmine-core/jasmine',
-    "jasmine-html": 'vendor/jasmine/lib/jasmine-core/jasmine-html',
-    "jasmine-jquery": 'vendor/jasmine-jquery/lib/jasmine-jquery',
+		jquery: 'vendor/jquery/jquery',
+		underscore: 'vendor/underscore/underscore',
+		backbone: 'vendor/backbone/backbone',
+		'backbone.validation': 'vendor/backbone-validation/src/backbone-validation',
+		marionette: 'vendor/marionette/lib/backbone.marionette',
+		text: 'vendor/text/text',
+		handlebars: 'vendor/handlebars/handlebars',
+		"jasmine": 'vendor/jasmine/lib/jasmine-core/jasmine',
+		"jasmine-html": 'vendor/jasmine/lib/jasmine-core/jasmine-html',
+		"jasmine-jquery": 'vendor/jasmine-jquery/lib/jasmine-jquery'
   },
 
   shim: {
-	  jquery: {
-	  	exports: 'jQuery'
-	  },
-	  
-	  underscore: {
-	  	exports: '_'
-	  },
-	  
-	  handlebars: {
-	  	exports: 'Handlebars'
-	  },
-	  
-	  backbone: {
-	  	deps: ['jquery', 'underscore'],
-	  	exports: 'Backbone'
-	  },
-	  
-	  marionette: {
-	  	deps: ['jquery', 'underscore', 'backbone', 'handlebars', 'backbone.validation'],
-	  	exports: 'Marionette'
-	  },
-	  
-	  'backbone.validation': {
-	  	deps: ['backbone'],
-	  	exports: 'Backbone.Validation'
-	  },
-	  
-	  'views/App': {
-	  	deps: ['marionette']
-	  },
-	  
-	  "jasmine": {
-	  	exports: 'jasmine'
-	  },
-	  
-    "jasmine-html": {
+		jquery: {
+			exports: 'jQuery'
+		},
+		
+		underscore: {
+			exports: '_'
+		},
+
+		handlebars: {
+			exports: 'Handlebars'
+		},
+
+		backbone: {
+			deps: ['jquery', 'underscore'],
+			exports: 'Backbone'
+		},
+
+		marionette: {
+			deps: ['jquery', 'underscore', 'backbone', 'handlebars', 'backbone.validation'],
+			exports: 'Marionette'
+		},
+
+		'backbone.validation': {
+			deps: ['backbone'],
+			exports: 'Backbone.Validation'
+		},
+
+		'views/App': {
+			deps: ['marionette']
+		},
+
+		"jasmine": {
+			exports: 'jasmine'
+		},
+
+		"jasmine-html": {
       exports: 'jasmine',
       deps:['jasmine']
     },
-    
-    "jasmine-jquery": {
-    	exports: 'jasmine',
-    	deps:['jasmine']
-    },
-    
-    
 
+    "jasmine-jquery": {
+			exports: 'jasmine',
+			deps:['jasmine']
+		}
   }
 
 });

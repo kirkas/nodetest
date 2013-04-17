@@ -20,13 +20,16 @@ io = require('socket.io');
 http = require('http');
 
 /* ---- Express Server --------------*/
-application_root = __dirname+'/app/';
+
+Config = require('./server/config');
+conf = new Config();
+
+application_root = __dirname+conf.directory;
 app = express();
 
 
-
-
 app.configure(function() {
+  
   app.use(express.cookieParser('your secret here'));
   app.set('view engine', 'ejs');
   app.use(express.bodyParser());
@@ -43,24 +46,28 @@ app.configure(function() {
     dumpExceptions: true,
     showStack: true
   }));
+  
+  
+  
 });
 
 /* ---- Moongoose DB connect --------*/
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/'+conf.db);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback() {console.log('Connected to DB');});
+db.once('open', function callback() {console.log('Connected to DB: '+conf.db);});
 
 /* ---- Routes --------------------*/
-require('./api/routes')(app);
+require('./server/routes')(app);
 
 
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-server.listen(4711, function() {
-  console.log('Express server listening on port %d in %s mode', 4711, app.settings.env);
+server.listen(conf.port, function() {
+  console.log('Express server listening on port %d in %s mode', conf.port, app.settings.env);
 });
+
 
 
 
@@ -70,7 +77,4 @@ io.sockets.on('connection', function (socket) {
   socket.on('client running', function () {
     console.log("client running");
   });
-  
-
-  
 });

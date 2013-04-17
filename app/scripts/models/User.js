@@ -30,7 +30,7 @@ define(['backbone', 'globals/validation'], function(Backbone) {
         required: true,
         msg: validation.passwordRequire
       }
-    },
+    }
 
 
   });

@@ -1,3 +1,4 @@
+
 define(['marionette', 'views/Signup','views/Login', 'text!templates/homeLayout.html'], function(Marionette, Signup, Login, homeLayout) {
 	
 	HomeLayout = Backbone.Marionette.Layout.extend({
@@ -14,8 +15,8 @@ define(['marionette', 'views/Signup','views/Login', 'text!templates/homeLayout.h
 
 		initialize: function(){
 			this.layout = new HomeLayout();
-			App.applicationRegions.show(this.layout)
-			this.showSignup()
+			App.applicationRegions.show(this.layout);
+			this.showSignup();
 		},
 		
 		showSignup: function(){
@@ -24,12 +25,12 @@ define(['marionette', 'views/Signup','views/Login', 'text!templates/homeLayout.h
 			this.layout.contentRegion.show(signupView);
 			
 			signupView.on("login-link:clicked", function() {
-				self.showLogin()
-			})
+				self.showLogin();
+			});
 			
 			signupView.on("signup:complete", function() {
 				App.ShowUserProfile();
-			})
+			});
 
 		},
 		
@@ -39,12 +40,12 @@ define(['marionette', 'views/Signup','views/Login', 'text!templates/homeLayout.h
 			this.layout.contentRegion.show(loginView);
 	
 			loginView.on("signup-link:clicked", function() {
-				self.showSignup()
-			})
+				self.showSignup();
+			});
 			
 			loginView.on("login:complete", function() {
 				App.ShowUserProfile();
-			})
+			});
 			
 		}
 

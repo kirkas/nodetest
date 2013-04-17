@@ -6,7 +6,7 @@ define(['text!templates/login.html', 'marionette', 'models/User'], function(temp
     className: "signup-box six block centered",
 
     events: {
-      "submit form": "login",
+      "submit form": "login"
     },
     
     model: new UserModel(),
@@ -25,8 +25,8 @@ define(['text!templates/login.html', 'marionette', 'models/User'], function(temp
     login: function() {
       
       var self = this;
-      self.ui.userName.removeClass("invalid")
-      self.ui.userPassword.removeClass("invalid")
+      self.ui.userName.removeClass("invalid");
+      self.ui.userPassword.removeClass("invalid");
       
       
       $.ajax({
@@ -47,12 +47,12 @@ define(['text!templates/login.html', 'marionette', 'models/User'], function(temp
           var error = JSON.parse(response.responseText);
           if(error.dataError == "username"){
             self.ui.userName.removeClass("valid").addClass("invalid");
-            alert(error.message)
+            alert(error.message);
           }else if(error.dataError == "password"){
             self.ui.userPassword.removeClass("valid").addClass("invalid");
-            alert(error.message)
+            alert(error.message);
           }else{
-            alert("something went wrong, sorry")
+            alert("something went wrong, sorry");
           }
         }
       });

@@ -12,12 +12,12 @@ define(['marionette', 'text!templates/userItem.html'], function(Marionette, temp
       return {
         username: this.model.get("username"),
         email: this.model.get("email")
-      }
+      };
     },
 
     removeUser: function() {
       this.model.destroy();
-    },
+    }
 
   });
 

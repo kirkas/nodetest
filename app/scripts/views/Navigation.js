@@ -18,7 +18,7 @@ define(['text!templates/navigation.html', 'marionette'], function(template, Mari
 			return {
 				userLoggedIn: userLoggedIn,
 				userName:userName
-			}
+			};
 		}
 
 	});

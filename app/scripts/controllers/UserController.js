@@ -13,18 +13,18 @@ define(['marionette', 'text!templates/userLayout.html', 'views/User', 'models/Us
 	
 		initialize: function(){
 			this.layout = new UserLayout();
-			App.applicationRegions.show(this.layout)
-			this.showUser()
+			App.applicationRegions.show(this.layout);
+			this.showUser();
 		},
 		
 		
 		showUser: function(){
 			var userProfileVIew = new UserView({
 				model: App.CurrentUser
-			})
+			});
 			
-			console.log(App.CurrentUser)
-			this.layout.header.show(userProfileVIew)
+			console.log(App.CurrentUser);
+			this.layout.header.show(userProfileVIew);
 		}
 	
 	});
