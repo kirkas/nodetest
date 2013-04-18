@@ -78,6 +78,15 @@ module.exports = function(grunt) {
 				}
 		},
 		
+		csslint: {
+			options: {
+				csslintrc: '.csslintrc'
+			},
+			main: {
+				src: ['app/css/main.css']
+			},
+		},
+		
 		uglify: {
 			build: {
 				options: {
@@ -105,11 +114,17 @@ module.exports = function(grunt) {
 		},
 				
 		watch: {
-			styles: {
+			sass: {
 				files: [
 					'<%= projectOption.app %>/css/*.scss'
 				],
 				tasks: ['sass']
+			},
+			css:{
+				files:[
+					'<%= projectOption.app %>/css/main.css'
+				],
+				tasks: ['csslint']
 			},
 			scripts: {
 				files: [
@@ -159,10 +174,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-requirejs');
 	grunt.loadNpmTasks('grunt-usemin');
-	grunt.loadNpmTasks('grunt-css');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.renameTask('regarde', 'watch');
+	
 	
 	grunt.registerTask('server', 'Run server', function () {
 			var tasks = ['livereload-start', 'express', 'watch'];

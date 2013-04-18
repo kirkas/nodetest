@@ -531,12 +531,11 @@ html {
   margin-top: -25px; }
 
 .signup-box, .login-box {
-  padding: 12px;
-  margin-top: 60px !important;
+  padding: 6px;
+  margin-top: 60px;
   background: #f2f2f2;
   border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 6px !important; }
+  border-radius: 3px; }
 
 nav.navigation {
   background: #f1f1f1;

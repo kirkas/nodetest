@@ -61,12 +61,11 @@ html{
 }
 
 .signup-box, .login-box{
-	padding: $gutter-width;
-	margin-top: 60px!important;
+	padding: $gutter-width/2;
+	margin-top: 60px;
 	background: #f2f2f2;
 	border: 1px solid #ddd;
 	border-radius:$border-radius;
-	padding: 6px!important;
 }
 
 nav.navigation{
