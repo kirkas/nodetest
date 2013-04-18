@@ -4,6 +4,7 @@ var mountFolder = function (connect, dir) {
 };
 
 var path = require('path');
+
 module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
@@ -19,7 +20,7 @@ module.exports = function(grunt) {
 						
 		projectOption:{
 			app:"app",
-			dist: "app-build"
+			dist: "dist"
 		},
 		
 		jshint: {
@@ -121,6 +122,7 @@ module.exports = function(grunt) {
 			livereload: {
 				files: [
 					'<%= projectOption.app %>/*.ejs',
+					'<%= projectOption.app %>/scripts/templates/*.html',
 					'<%= projectOption.app %>/css/main.css'
 				],
 				tasks: ['livereload']
@@ -160,13 +162,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-css');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	
 	grunt.renameTask('regarde', 'watch');
 	
 	grunt.registerTask('server', 'Run server', function () {
 			var tasks = ['livereload-start', 'express', 'watch'];
-	
-			// always use force when watching
 			grunt.option('force', true);
 			grunt.task.run(tasks);
 	});

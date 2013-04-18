@@ -1,15 +1,17 @@
 module.exports = function(){
 	
+		process.env.NODE_ENV = "development";
+	
 		var production = {
-			directory: '/app-build/',
+			directory: './dist/',
 			port:4000,
 			db:'production',
 			env:'production'
 		};
 		
 		var developement = {
-			directory: '/app/',
-			port:5000,
+			directory: './app/',
+			port:4000,
 			db:'development',
 			env:'development'
 		};

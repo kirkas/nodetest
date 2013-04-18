@@ -1,4 +1,4 @@
-define(['views/App'], function(App) {
+define(['App'], function(App) {
 
 	describe("App setup Spec", function() {
 		it("load library (jQuery, Underscore, Backbone, Marionette)", function() {

@@ -20,8 +20,9 @@ io = require('socket.io').listen(server);
 Config = require('./config');
 conf = new Config();
 
-application_root = __dirname+'./app/';
+application_root = __dirname+conf.directory;
 console.log(application_root);
+
 
 app.configure(function() {
 	app.use(express.cookieParser('your secret here'));
@@ -29,13 +30,14 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.session({secret: 'Seekvence secret'}));
-	app.set('views', './app/');
+	app.set('views', conf.directory);
 	app.use(express.favicon());
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
-	app.use(express.static('./app/')); 
-	app.use('/user/',express.static(application_root)); 
+	app.use(express.static(conf.directory)); 
+	app.use('/user/',express.static(conf.directory));
+	app.use('/test/',express.static(conf.directory)); 
 	app.use(express.errorHandler({
 		dumpExceptions: true,
 		showStack: true
@@ -56,17 +58,12 @@ server.listen(conf.port, function() {
 	console.log('Express server listening on port %d in %s mode', conf.port, app.settings.env);
 });
 
-
-
-
-
 io.sockets.on('connection', function (socket) {
 	socket.emit('server running');
 	socket.on('client running', function () {
 		console.log("client running");
 	});
 });
-
 
 exports = module.exports = server;
 

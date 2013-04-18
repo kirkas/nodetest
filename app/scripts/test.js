@@ -1,15 +1,16 @@
 require.config({
   paths: {
-		jquery: 'vendor/jquery/jquery',
-		underscore: 'vendor/underscore/underscore',
-		backbone: 'vendor/backbone/backbone',
-		'backbone.validation': 'vendor/backbone-validation/src/backbone-validation',
-		marionette: 'vendor/marionette/lib/backbone.marionette',
-		text: 'vendor/text/text',
-		handlebars: 'vendor/handlebars/handlebars',
-		"jasmine": 'vendor/jasmine/lib/jasmine-core/jasmine',
-		"jasmine-html": 'vendor/jasmine/lib/jasmine-core/jasmine-html',
-		"jasmine-jquery": 'vendor/jasmine-jquery/lib/jasmine-jquery'
+		jquery: '../components/jquery/jquery',
+		underscore: '../components/underscore/underscore',
+		backbone: '../components/backbone/backbone',
+		'backbone.validation': '../components/backbone-validation/src/backbone-validation',
+		marionette: '../components/marionette/lib/backbone.marionette',
+		text: '../components/text/text',
+		handlebars: '../components/handlebars/handlebars',
+		"jasmine": '../components/jasmine/lib/jasmine-core/jasmine',
+		"jasmine-html": '../components/jasmine/lib/jasmine-core/jasmine-html',
+		"jasmine-jquery": '../components/jasmine-jquery/lib/jasmine-jquery',
+		io: '../components/socket.io-client/dist/socket.io'
   },
 
   shim: {
@@ -40,7 +41,7 @@ require.config({
 			exports: 'Backbone.Validation'
 		},
 
-		'views/App': {
+		'App': {
 			deps: ['marionette']
 		},
 
