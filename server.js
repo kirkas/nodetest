@@ -78,3 +78,10 @@ io.sockets.on('connection', function (socket) {
     console.log("client running");
   });
 });
+
+
+exports = module.exports = server;
+
+exports.use = function() {
+  app.use.apply(app, arguments);
+};

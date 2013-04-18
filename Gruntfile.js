@@ -1,5 +1,10 @@
+var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var mountFolder = function (connect, dir) {
+		return connect.static(require('path').resolve(dir));
+};
+
+var path = require('path');
 module.exports = function(grunt) {
-	
 	// Project configuration.
 	grunt.initConfig({
 
@@ -7,12 +12,13 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		
 		banner: '/*------------------------------------------------------------------------------ \n'+
-						'<%= pkg.name %> - <%= pkg.version %>\n'+
+						'<%= pkg.name %> - <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n'+
 						'author: <%= pkg.author %>\n'+
 						'description: <%= pkg.description %>\n'+
 						'------------------------------------------------------------------------------*/\n',
 						
 		projectOption:{
+			app:"app",
 			dist: "app-build"
 		},
 		
@@ -22,7 +28,7 @@ module.exports = function(grunt) {
 			},
 			
 			app: {
-				src:'app/scripts/**/*.js'
+				src:'<%= projectOption.app %>/scripts/**/*.js'
 			},
 			
 			server: {
@@ -41,8 +47,8 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					name:"main",
-					baseUrl: "app/scripts",
-					mainConfigFile: "app/scripts/main.js",
+					baseUrl: "<%= projectOption.app %>/scripts",
+					mainConfigFile: "<%= projectOption.app %>/scripts/main.js",
 					out: "<%= projectOption.dist %>/scripts/main.js"
 				}
 			}
@@ -53,7 +59,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true, 
 					flatten: true, 
-					src: ['app/index.ejs'], 
+					src: ['<%= projectOption.app %>/index.ejs'], 
 					dest: '<%= projectOption.dist %>/', 
 					filter: 'isFile'
 				}]
@@ -66,7 +72,7 @@ module.exports = function(grunt) {
 				},
 				
 				main: {
-						src: 'app/css/main.css',
+						src: '<%= projectOption.app %>/css/main.css',
 						dest: '<%= projectOption.dist %>/css/main.css'
 				}
 		},
@@ -76,7 +82,7 @@ module.exports = function(grunt) {
 				options: {
 					banner: '/*---- Require.js ----------------------------------------------------------- */\n'
 				},
-				src: 'app/components/requirejs/require.js',
+				src: '<%= projectOption.app %>/components/requirejs/require.js',
 				dest: '<%= projectOption.dist %>/components/requirejs/require.js'
 			},
 			
@@ -92,7 +98,7 @@ module.exports = function(grunt) {
 		sass: {
 			dist: {
 				files: {
-					'app/css/main.css': 'app/css/main.scss'
+					'<%= projectOption.app %>/css/main.css': 'app/css/main.scss'
 				}
 			}
 		},
@@ -100,28 +106,54 @@ module.exports = function(grunt) {
 		watch: {
 			styles: {
 				files: [
-					'app/css/*.scss'
+					'<%= projectOption.app %>/css/*.scss'
 				],
 				tasks: ['sass']
 			},
 			scripts: {
 				files: [
 					'Gruntfile.js', 
-					'app/scripts/**/**/**/*.js',
+					'<%= projectOption.app %>/scripts/**/*.js',
 					'server/**/*.js'
 				],
 				tasks: ['jshint']
+			},
+			livereload: {
+				files: [
+					'<%= projectOption.app %>/*.ejs',
+					'<%= projectOption.app %>/css/main.css'
+				],
+				tasks: ['livereload']
+			}
+		},
+		
+		express: {
+			livereload: {
+				options: {
+					port: 9000,
+					monitor: {},
+					debug: true,
+					server: path.resolve('./server/server'),
+					middleware: function(connect, options) {
+						return [lrSnippet, folderMount(connect, "./app")];
+					}
+				}
 			}
 		}
+		
 	});
+	
+
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-express');
+	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-contrib-livereload');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-regarde');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-requirejs');
 	grunt.loadNpmTasks('grunt-usemin');
@@ -129,8 +161,24 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	
+	grunt.renameTask('regarde', 'watch');
+	
+	grunt.registerTask('server', 'Run server', function () {
+			var tasks = ['livereload-start', 'express', 'watch'];
+	
+			// always use force when watching
+			grunt.option('force', true);
+			grunt.task.run(tasks);
+	});
+	
 	// Default task.
-	grunt.registerTask('default', ['sass', 'jshint', 'watch']);
+	grunt.registerTask('default', function(){
+		grunt.log.write('Welcome to seekvence grunt project\n');
+		grunt.log.write('Use "grunt compile" to compile sass and jshint your javascript\n');
+		grunt.log.write('Use "grunt build" to compile your entire project\n');
+		
+	});
+	grunt.registerTask('compile', ['sass', 'jshint']);
 	grunt.registerTask('build', ['sass', 'jshint' ,'clean','requirejs','cssmin', 'uglify', 'copy']);
 	
 };

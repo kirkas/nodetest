@@ -85,7 +85,6 @@ define([
     
     Backbone.history.start();
   });
-
-
+  
   return App;
 });
